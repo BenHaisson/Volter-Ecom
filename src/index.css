@@ -1,0 +1,145 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color: #f6f7f4;
+  background: #070909;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: #070909;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background:
+    linear-gradient(180deg, rgba(7, 9, 9, 0.94), rgba(7, 9, 9, 1) 68%),
+    #070909;
+}
+
+body:has([data-lock-scroll='true']) {
+  overflow: hidden;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  touch-action: manipulation;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+@layer components {
+  .shell {
+    width: min(1180px, calc(100% - 32px));
+    margin-inline: auto;
+  }
+
+  .eyebrow {
+    color: #d7ff28;
+    font-family: theme('fontFamily.display');
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .display-title {
+    font-family: theme('fontFamily.display');
+    font-weight: 900;
+    line-height: 0.94;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  .glass {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(16, 22, 22, 0.7);
+    backdrop-filter: blur(18px);
+  }
+
+  .button-primary {
+    display: inline-flex;
+    min-height: 48px;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    border-radius: 8px;
+    background: #d7ff28;
+    padding: 0.8rem 1.1rem;
+    color: #071009;
+    font-weight: 900;
+    transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+  }
+
+  .button-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 28px rgba(215, 255, 40, 0.25);
+  }
+
+  .button-secondary {
+    display: inline-flex;
+    min-height: 48px;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.8rem 1.1rem;
+    color: #f6f7f4;
+    font-weight: 850;
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+  }
+
+  .button-secondary:hover {
+    transform: translateY(-2px);
+    border-color: rgba(215, 255, 40, 0.45);
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .technical-border {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .technical-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(90deg, rgba(215, 255, 40, 0.28), transparent 24%) top left / 100% 1px no-repeat,
+      linear-gradient(180deg, rgba(215, 255, 40, 0.18), transparent 28%) top left / 1px 100% no-repeat;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}
