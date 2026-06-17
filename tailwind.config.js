@@ -4,11 +4,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        carbon: '#070909',
+        carbon: '#050707',
         graphite: '#111616',
         panel: '#151b1b',
         lime: '#d7ff28',
         moss: '#8da26f',
+        blue: '#008dff',
       },
       boxShadow: {
         glow: '0 0 36px rgba(215, 255, 40, 0.22)',
