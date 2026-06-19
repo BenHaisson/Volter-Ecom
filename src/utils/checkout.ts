@@ -16,7 +16,6 @@ export type ReservationLead = {
 
 export type PaymentSession = {
   orderId: string;
-  addressIn: string;
   checkoutUrl: string;
 };
 
@@ -26,18 +25,37 @@ export async function createPaymentSession(params: {
   email: string;
   orderId: string;
 }): Promise<PaymentSession> {
-  const res = await fetch('/api/create-payment', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(params),
-  });
+  const { amount, currency = 'USD', email, orderId } = params;
 
-  if (!res.ok) {
-    const body = (await res.json().catch(() => ({}))) as { error?: string };
-    throw new Error(body.error ?? 'Failed to create payment session');
+  const walletAddress = import.meta.env.VITE_PAYGATE_WALLET_ADDRESS as string | undefined;
+  if (!walletAddress) {
+    throw new Error('Payment gateway not configured. Set VITE_PAYGATE_WALLET_ADDRESS in your environment.');
   }
 
-  return res.json() as Promise<PaymentSession>;
+  const callbackUrl = `${window.location.origin}/api/payment-callback?order_id=${orderId}`;
+
+  const walletParams = new URLSearchParams({
+    address: walletAddress,
+    callback: callbackUrl,
+  });
+
+  const res = await fetch(`https://api.paygate.to/control/wallet.php?${walletParams}`);
+  if (!res.ok) throw new Error('PayGate unreachable. Please try again.');
+
+  const data = (await res.json()) as { address_in?: string };
+  if (!data.address_in) throw new Error('Could not generate a payment address. Please try again.');
+
+  const checkoutParams = new URLSearchParams({
+    address: data.address_in,
+    amount: String(amount),
+    currency,
+    email,
+  });
+
+  return {
+    orderId,
+    checkoutUrl: `https://checkout.paygate.to/process-payment.php?${checkoutParams}`,
+  };
 }
 
 export function submitReservationLead(lead: ReservationLead) {
