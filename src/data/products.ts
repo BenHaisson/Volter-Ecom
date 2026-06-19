@@ -82,7 +82,7 @@ export const products: Product[] = [
     id: 'x1-shadow',
     name: 'Volterra X1 Shadow',
     color: 'Black / Neon Lime',
-    price: 6900,
+    price: 50, // TEST BRANCH — reset to 6900 before merging
     description: 'The aggressive electric dirt bike for technical trails and high-torque off-road control.',
     story:
       'X1 Shadow is tuned for riders who want traction, silence, and immediate response on rugged singletrack. The black and neon lime finish keeps the platform stealthy while the electric drive delivers full torque without clutch work.',

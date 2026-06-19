@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react';
 import type { CartItem, Product } from '../data/products';
 import { createPaymentSession, submitReservationLead } from '../utils/checkout';
 
-const SHIPPING = 390;
+const SHIPPING = 0; // TEST BRANCH — reset to 390 before merging
 
 type CheckoutModalProps = {
   open: boolean;

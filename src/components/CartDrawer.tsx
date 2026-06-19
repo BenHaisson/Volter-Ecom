@@ -34,7 +34,7 @@ export function CartDrawer({
     .filter(Boolean) as Array<CartItem & { product: Product; total: number }>;
 
   const subtotal = lines.reduce((sum, line) => sum + line.total, 0);
-  const shipping = subtotal > 0 ? 390 : 0;
+  const shipping = subtotal > 0 ? 0 : 0; // TEST BRANCH — reset to 390 before merging
   const total = subtotal + shipping;
 
   return (
