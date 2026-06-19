@@ -42,17 +42,16 @@ export async function createPaymentSession(params: {
   const data = (await res.json()) as { address_in?: string };
   if (!data.address_in) throw new Error('Could not generate a payment address. Please try again.');
 
-  const checkoutParams = new URLSearchParams({
-    address: data.address_in,
-    amount: String(amount),
-    currency,
-    email,
-  });
+  // address_in is already URL-encoded in PayGate's JSON response — use it raw
+  // to avoid double-encoding (e.g. %2B becoming %252B)
+  const checkoutUrl =
+    `https://checkout.paygate.to/process-payment.php` +
+    `?address=${data.address_in}` +
+    `&amount=${amount}` +
+    `&currency=${currency}` +
+    `&email=${encodeURIComponent(email)}`;
 
-  return {
-    orderId,
-    checkoutUrl: `https://checkout.paygate.to/process-payment.php?${checkoutParams}`,
-  };
+  return { orderId, checkoutUrl };
 }
 
 export function submitReservationLead(lead: ReservationLead) {
