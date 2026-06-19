@@ -82,7 +82,7 @@ export const products: Product[] = [
     id: 'x1-shadow',
     name: 'Volterra X1 Shadow',
     color: 'Black / Neon Lime',
-    price: 50, // TEST BRANCH — reset to 6900 before merging
+    price: 50,
     description: 'The aggressive electric dirt bike for technical trails and high-torque off-road control.',
     story:
       'X1 Shadow is tuned for riders who want traction, silence, and immediate response on rugged singletrack. The black and neon lime finish keeps the platform stealthy while the electric drive delivers full torque without clutch work.',
@@ -94,7 +94,7 @@ export const products: Product[] = [
     id: 'x1-alpine',
     name: 'Volterra X1 Alpine',
     color: 'White / Neon Lime',
-    price: 7200,
+    price: 50,
     description: 'A clean white performance edition built for premium riders and mountain terrain.',
     story:
       'X1 Alpine pairs the same electric platform with a brighter body finish for high-visibility mountain riding. It is built around fast charge cycles, removable battery access, and low-maintenance ownership.',
@@ -106,7 +106,7 @@ export const products: Product[] = [
     id: 'x1-blue-storm',
     name: 'Volterra X1 Blue Storm',
     color: 'Blue / Neon Lime',
-    price: 7400,
+    price: 50,
     description: 'A bold blue edition with the same high-output platform and futuristic trail presence.',
     story:
       'X1 Blue Storm brings the most expressive finish to the launch collection while retaining the same drivetrain, frame architecture, and suspension package used across the X1 platform.',
