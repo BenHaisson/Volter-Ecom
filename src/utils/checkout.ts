@@ -19,6 +19,8 @@ export type PaymentSession = {
   checkoutUrl: string;
 };
 
+const PAYGATE_WALLET = '0x312b34C949A33c4F6c3D9cf8Ef03AE61a19E97bF';
+
 export async function createPaymentSession(params: {
   amount: number;
   currency?: string;
@@ -27,15 +29,10 @@ export async function createPaymentSession(params: {
 }): Promise<PaymentSession> {
   const { amount, currency = 'USD', email, orderId } = params;
 
-  const walletAddress = import.meta.env.VITE_PAYGATE_WALLET_ADDRESS as string | undefined;
-  if (!walletAddress) {
-    throw new Error('Payment gateway not configured. Set VITE_PAYGATE_WALLET_ADDRESS in your environment.');
-  }
-
   const callbackUrl = `${window.location.origin}/api/payment-callback?order_id=${orderId}`;
 
   const walletParams = new URLSearchParams({
-    address: walletAddress,
+    address: PAYGATE_WALLET,
     callback: callbackUrl,
   });
 
