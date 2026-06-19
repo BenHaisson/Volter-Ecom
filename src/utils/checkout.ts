@@ -14,10 +14,30 @@ export type ReservationLead = {
   cart: CartItem[];
 };
 
-export async function createCheckoutSession() {
-  // Connect Stripe Checkout, PayPal, bank transfer, or financing here.
-  // Keep payment collection on a PCI-compliant provider or secure backend endpoint.
-  return { status: 'placeholder' as const };
+export type PaymentSession = {
+  orderId: string;
+  addressIn: string;
+  checkoutUrl: string;
+};
+
+export async function createPaymentSession(params: {
+  amount: number;
+  currency?: string;
+  email: string;
+  orderId: string;
+}): Promise<PaymentSession> {
+  const res = await fetch('/api/create-payment', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(params),
+  });
+
+  if (!res.ok) {
+    const body = (await res.json().catch(() => ({}))) as { error?: string };
+    throw new Error(body.error ?? 'Failed to create payment session');
+  }
+
+  return res.json() as Promise<PaymentSession>;
 }
 
 export function submitReservationLead(lead: ReservationLead) {
